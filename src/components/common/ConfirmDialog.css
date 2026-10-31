@@ -1,0 +1,136 @@
+
+/* ---------- Confirmation Dialog ---------- */
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.48);
+  backdrop-filter: blur(2px);
+}
+
+.confirm-dialog {
+  width: 100%;
+  max-width: 380px;
+  padding: 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  animation: confirmDialogIn 0.18s ease both;
+}
+
+@keyframes confirmDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.confirm-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.9rem;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.confirm-icon-danger {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.confirm-icon-warning {
+  background: #fff7ed;
+  color: #d97706;
+}
+
+.confirm-icon-primary {
+  background: var(--info-soft);
+  color: var(--info);
+}
+
+.confirm-content h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 750;
+  color: var(--text);
+}
+
+.confirm-content p {
+  margin: 0.45rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  margin-top: 1.3rem;
+}
+
+.confirm-actions button {
+  padding: 0.6rem 0.9rem;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.confirm-cancel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.confirm-cancel:hover:not(:disabled) {
+  background: var(--bg);
+}
+
+.confirm-submit {
+  border: 1px solid transparent;
+  color: #fff;
+}
+
+.confirm-submit-danger {
+  background: var(--warn);
+}
+
+.confirm-submit-warning {
+  background: #d97706;
+}
+
+.confirm-submit-primary {
+  background: var(--ember);
+}
+
+.confirm-submit:hover:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.confirm-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .confirm-dialog {
+    padding: 1.1rem;
+  }
+}

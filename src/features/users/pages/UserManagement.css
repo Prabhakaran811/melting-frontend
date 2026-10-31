@@ -1,0 +1,825 @@
+/* The page padding now comes from the shared layout, so none is set here */
+
+.header-actions { display: flex; gap: 0.6rem; }
+
+.btn-ghost {
+  font: inherit; font-weight: 700; cursor: pointer;
+  padding: 0.85rem 1.1rem; border-radius: 10px;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--line);
+  transition: background 0.15s;
+}
+.btn-ghost:hover:not(:disabled) { background: var(--bg); }
+.btn-ghost:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ---------- Summary cards ---------- */
+.user-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.summary-card {
+  display: flex; flex-direction: column; gap: 0.15rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--ink);
+  border-radius: var(--radius);
+}
+.summary-card span { color: var(--muted); font-size: 0.9rem; }
+.summary-card strong { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; }
+.summary-ok { border-top-color: var(--ok); }
+.summary-off { border-top-color: #c4cbd3; }
+
+/* ---------- List card ---------- */
+.user-list-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  min-width: 0;
+}
+
+.user-list-heading {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 1rem; margin-bottom: 1rem;
+}
+.user-list-heading h2 { font-size: 1.05rem; font-weight: 700; }
+
+.user-filters { display: flex; gap: 0.7rem; margin-bottom: 1.1rem; }
+.user-filters input,
+.user-filters select {
+  font: inherit; padding: 0.7rem 0.85rem; min-width: 150px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--text);
+}
+.user-filters input { flex: 1; }
+.user-filters input:focus,
+.user-filters select:focus {
+  border-color: var(--ember); outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.18);
+}
+
+/* ---------- Table ---------- */
+.user-table-wrapper { overflow-x: auto; }
+
+.user-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+.user-table th,
+.user-table td {
+  padding: 0.8rem 0.9rem; text-align: left; font-size: 0.9rem;
+  border-bottom: 1px solid var(--bg);
+}
+.user-table th {
+  background: var(--bg); color: var(--muted); font-weight: 700;
+  border-bottom: 1px solid var(--line);
+}
+.user-table th:first-child { border-radius: 8px 0 0 8px; }
+.user-table th:last-child { border-radius: 0 8px 8px 0; }
+.user-table tbody tr:hover { background: #fafbfc; }
+.user-table tbody tr:last-child td { border-bottom: 0; }
+
+.person { display: flex; align-items: center; gap: 0.75rem; }
+.person-avatar {
+  width: 36px; height: 36px; flex: none; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--ember-soft); color: var(--ember-dark);
+  font-size: 0.8rem; font-weight: 800;
+}
+.person-name { font-weight: 700; }
+.person-email { font-size: 0.82rem; color: var(--muted); }
+
+.role-badge {
+  display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px;
+  background: var(--info-soft); color: var(--info);
+  font-size: 0.8rem; font-weight: 700; text-transform: capitalize;
+}
+
+.status-pill {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-size: 0.85rem; font-weight: 700;
+}
+.status-pill::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor;
+}
+.status-active { color: var(--ok); }
+.status-inactive { color: var(--muted); }
+
+.table-actions { display: flex; gap: 0.4rem; }
+.table-actions button {
+  font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+  padding: 0.4rem 0.7rem; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--text);
+  transition: background 0.15s;
+}
+.table-actions button:hover { background: var(--bg); }
+.table-actions .delete-button { color: var(--warn); }
+.table-actions .delete-button:hover { background: var(--warn-soft); border-color: var(--warn-soft); }
+
+.empty-state { padding: 2.5rem 1rem; text-align: center; }
+
+/* ---------- Page states ---------- */
+.users-state {
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  padding: 3rem 1rem; text-align: center; color: var(--muted);
+}
+.users-state-error h2 { color: var(--warn); font-size: 1.2rem; }
+
+.user-page-error {
+  margin-bottom: 1rem; padding: 0.75rem 1rem; border-radius: 10px;
+  background: var(--warn-soft); color: var(--warn); font-weight: 600; font-size: 0.92rem;
+}
+/* ---------- Add / edit dialog ---------- */
+.user-form-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center; padding: 1.25rem;
+  background: rgba(22, 27, 33, 0.55);
+}
+
+.user-form-modal {
+  width: 100%; max-width: 680px; max-height: 92vh; overflow-y: auto;
+  padding: 1.8rem 2rem 1.6rem; background: var(--surface); border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(22, 27, 33, 0.3);
+  animation: modalIn 0.18s ease both;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+.user-form { display: flex; flex-direction: column; }
+
+/* Header */
+.form-head {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+  padding-bottom: 1.1rem; margin-bottom: 1.3rem;
+  border-bottom: 1px solid var(--line);
+}
+.form-head h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; }
+.form-head .muted { margin-top: 0.15rem; }
+
+.form-close {
+  width: 36px; height: 36px; flex: none; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  color: var(--muted); font-size: 1.4rem; line-height: 1; cursor: pointer;
+}
+.form-close:hover { background: var(--bg); color: var(--text); }
+
+/* Two columns */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem 1.2rem;
+}
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+.field label { font-size: 0.88rem; font-weight: 700; }
+.field small { color: var(--muted); font-size: 0.8rem; }
+
+.field input,
+.field select {
+  width: 100%; font: inherit; padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--text);
+}
+.field input:focus,
+.field select:focus {
+  border-color: var(--ember); outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.18);
+}
+.field input:disabled { background: var(--bg); color: var(--muted); cursor: not-allowed; }
+
+.user-form .form-error {
+  margin-top: 1.1rem; padding: 0.6rem 0.8rem; border-radius: 8px;
+  background: var(--warn-soft); color: var(--warn); font-size: 0.9rem; font-weight: 600;
+}
+
+/* Buttons */
+.form-actions {
+  display: flex; justify-content: flex-end; gap: 0.6rem;
+  margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+}
+.form-actions button {
+  font: inherit; font-weight: 700; cursor: pointer;
+  padding: 0.75rem 1.2rem; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--text);
+}
+.form-actions button:hover:not(:disabled) { background: var(--bg); }
+.form-actions button[type="submit"] {
+  background: var(--ember); border-color: var(--ember); color: #fff;
+}
+.form-actions button[type="submit"]:hover:not(:disabled) { background: var(--ember-dark); }
+.form-actions button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 860px) {
+  .user-summary { grid-template-columns: 1fr; }
+  .user-filters { flex-direction: column; }
+  .header-actions { width: 100%; }
+  .header-actions button { flex: 1; }
+}
+
+@media (max-width: 600px) {
+  .user-form-modal { padding: 1.3rem 1.2rem; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+
+
+/* ---------- Employee toolbar ---------- */
+
+.user-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.user-toolbar h2 {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.user-toolbar .muted {
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+/* Smaller Add Employee button */
+
+.btn-add-employee {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* ---------- Pagination ---------- */
+
+.user-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.pagination-info {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.page-button {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.page-button:hover:not(:disabled) {
+  background: var(--bg);
+}
+
+.page-button.active-page {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+
+.page-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+  .user-toolbar {
+    align-items: flex-start;
+  }
+
+  .user-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pagination-controls {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- Icon actions ---------- */
+
+.icon-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.icon-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  background: transparent;
+  color: var(--muted);
+
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* Edit */
+.edit-action:hover {
+  background: var(--info-soft);
+  color: var(--info);
+}
+
+/* Deactivate */
+.deactivate-action:hover {
+  background: #fff7ed;
+  color: #d97706;
+}
+
+/* Activate */
+.activate-action:hover {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+/* Delete */
+.delete-action:hover {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.icon-action:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+
+/* ---------- Compact Customer Table ---------- */
+
+.customer-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.customer-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  white-space: nowrap;
+}
+
+/* Column widths */
+.customer-table th:nth-child(1),
+.customer-table td:nth-child(1) {
+  width: 34%;
+}
+
+.customer-table th:nth-child(2),
+.customer-table td:nth-child(2) {
+  width: 15%;
+}
+
+.customer-table th:nth-child(3),
+.customer-table td:nth-child(3) {
+  width: 21%;
+}
+
+.customer-table th:nth-child(4),
+.customer-table td:nth-child(4) {
+  width: 13%;
+}
+
+.customer-table th:nth-child(5),
+.customer-table td:nth-child(5) {
+  width: 17%;
+}
+
+/* Table cells */
+.customer-table th,
+.customer-table td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  font-size: 0.83rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.customer-table th {
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.customer-table th:first-child {
+  border-radius: 7px 0 0 7px;
+}
+
+.customer-table th:last-child {
+  border-radius: 0 7px 7px 0;
+}
+
+.customer-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.customer-table tbody tr:hover {
+  background: var(--bg);
+}
+
+.customer-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Customer name and email */
+.person {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.person-avatar {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ember-soft);
+  color: var(--ember-dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.person-name {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+.person-email {
+  display: block;
+  margin: 3px 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+/* Address */
+.customer-address-cell {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.status-pill::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-active {
+  color: var(--ok);
+}
+
+.status-inactive {
+  color: var(--muted);
+}
+
+/* Action icons */
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.icon-actions {
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.icon-action {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.icon-action:hover {
+  border-color: transparent;
+}
+
+.edit-action:hover {
+  background: var(--info-soft);
+  color: var(--info);
+}
+
+.deactivate-action:hover {
+  background: #fff7ed;
+  color: #d97706;
+}
+
+.activate-action:hover {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.delete-action:hover {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.icon-action:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+
+/* =========================================
+   USER MANAGEMENT - COMPACT UI OVERRIDES
+   Scoped to User Management only
+========================================= */
+
+/* Main card */
+.user-management .user-list-card {
+  padding: 12px !important;
+  border-radius: 10px;
+}
+
+/* Heading */
+.user-management .user-list-heading {
+  margin-bottom: 9px !important;
+  align-items: center;
+}
+
+.user-management .user-list-heading h2 {
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.4;
+}
+
+.user-management .user-list-heading p {
+  margin: 0 !important;
+  font-size: 11px !important;
+}
+
+/* Filters */
+.user-management .user-filters {
+  gap: 7px !important;
+  margin-bottom: 10px !important;
+}
+
+.user-management .user-filters input,
+.user-management .user-filters select {
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  border-radius: 7px !important;
+}
+
+.user-management .btn-add-employee {
+  height: 34px !important;
+  padding: 5px 11px !important;
+  font-size: 12px !important;
+  border-radius: 7px !important;
+  white-space: nowrap;
+}
+
+/* Table wrapper */
+.user-management .user-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Table */
+.user-management table.user-table {
+  width: 100%;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  table-layout: auto;
+  white-space: nowrap;
+  margin: 0 !important;
+}
+
+/* Table headers and cells */
+.user-management .user-table th,
+.user-management .user-table td {
+  padding: 8px 10px !important;
+  height: auto !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  text-align: left;
+  vertical-align: middle !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+
+/* Header */
+.user-management .user-table th {
+  padding-top: 9px !important;
+  padding-bottom: 9px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  background: var(--bg) !important;
+  color: var(--muted) !important;
+}
+
+.user-management .user-table th:first-child {
+  border-radius: 7px 0 0 7px;
+}
+
+.user-management .user-table th:last-child {
+  border-radius: 0 7px 7px 0;
+}
+
+/* Row hover */
+.user-management .user-table tbody tr:hover {
+  background: var(--bg) !important;
+}
+
+.user-management .user-table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Employee details */
+.user-management .person {
+  display: flex;
+  align-items: center;
+  gap: 8px !important;
+  min-width: 0;
+}
+
+.user-management .person-avatar {
+  width: 27px !important;
+  height: 27px !important;
+  min-width: 27px;
+  flex: 0 0 27px;
+  font-size: 10px !important;
+}
+
+.user-management .person-name {
+  margin: 0 !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  font-weight: 650 !important;
+}
+
+.user-management .person-email {
+  margin: 2px 0 0 !important;
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+}
+
+/* Employee ID and phone */
+.user-management .user-table td {
+  font-size: 12px !important;
+}
+
+/* Role badge */
+.user-management .role-badge {
+  padding: 3px 7px !important;
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+}
+
+/* Status */
+.user-management .status-pill {
+  gap: 5px !important;
+  font-size: 11px !important;
+}
+
+.user-management .status-pill::before {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+/* Action icons */
+.user-management .table-actions.icon-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px !important;
+}
+
+.user-management .icon-action {
+  width: 27px !important;
+  height: 27px !important;
+  min-width: 27px;
+  padding: 0 !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+  background: var(--surface);
+}
+
+.user-management .icon-action svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* Pagination */
+.user-management .user-pagination {
+  margin-top: 9px !important;
+  padding-top: 9px !important;
+}
+
+.user-management .pagination-info {
+  font-size: 11px !important;
+}
+
+.user-management .pagination-controls {
+  gap: 4px !important;
+}
+
+.user-management .page-button {
+  min-width: 27px !important;
+  height: 27px !important;
+  padding: 0 7px !important;
+  font-size: 11px !important;
+  border-radius: 6px !important;
+}
+
+/* Empty state */
+.user-management .empty-state {
+  padding: 20px 10px !important;
+  font-size: 12px !important;
+}
+
+.user-management .empty-state p {
+  margin: 4px 0 0 !important;
+  font-size: 11px !important;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .user-management .user-table {
+    min-width: 750px;
+  }
+}
+
+@media (max-width: 600px) {
+  .user-management .user-list-card {
+    padding: 9px !important;
+  }
+
+  .user-management .user-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
