@@ -1,0 +1,456 @@
+/* =========================================
+   SUPPLIER MANAGEMENT
+   Same compact look as Customer / User Management
+========================================= */
+
+/* ---------- List card ---------- */
+.supplier-management .supplier-list-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  min-width: 0;
+}
+
+.supplier-management .supplier-list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 9px;
+}
+
+.supplier-management .supplier-list-heading h2 {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.supplier-management .supplier-list-heading p {
+  margin: 0;
+  font-size: 11px;
+}
+
+/* ---------- Filters ---------- */
+.supplier-management .supplier-filters {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.supplier-management .supplier-filters input {
+  flex: 1;
+  min-width: 150px;
+  height: 34px;
+  min-height: 34px;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.supplier-management .supplier-filters input:focus {
+  border-color: var(--ember);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.18);
+}
+
+.supplier-management .btn-add-supplier {
+  height: 34px;
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 7px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* ---------- Table ---------- */
+.supplier-management .supplier-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.supplier-management .supplier-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  white-space: nowrap;
+}
+
+.supplier-management .supplier-table th:nth-child(1),
+.supplier-management .supplier-table td:nth-child(1) { width: 32%; }
+
+.supplier-management .supplier-table th:nth-child(2),
+.supplier-management .supplier-table td:nth-child(2) { width: 18%; }
+
+.supplier-management .supplier-table th:nth-child(3),
+.supplier-management .supplier-table td:nth-child(3) { width: 36%; }
+
+.supplier-management .supplier-table th:nth-child(4),
+.supplier-management .supplier-table td:nth-child(4) { width: 14%; }
+
+.supplier-management .supplier-table th,
+.supplier-management .supplier-table td {
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line);
+}
+
+.supplier-management .supplier-table th {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--bg);
+  color: var(--muted);
+}
+
+.supplier-management .supplier-table th:first-child { border-radius: 7px 0 0 7px; }
+.supplier-management .supplier-table th:last-child { border-radius: 0 7px 7px 0; }
+
+.supplier-management .supplier-table tbody tr:hover { background: var(--bg); }
+.supplier-management .supplier-table tbody tr:last-child td { border-bottom: none; }
+
+.supplier-management .supplier-address-cell {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Supplier name + avatar */
+.supplier-management .person {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.supplier-management .person-avatar {
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  flex: 0 0 27px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ember-soft);
+  color: var(--ember-dark);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.supplier-management .person-name {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+
+/* ---------- Action icons ---------- */
+.supplier-management .table-actions.icon-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.supplier-management .icon-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.supplier-management .icon-action:hover { border-color: transparent; }
+
+.supplier-management .icon-action svg {
+  width: 14px;
+  height: 14px;
+}
+
+.supplier-management .edit-action:hover {
+  background: var(--info-soft);
+  color: var(--info);
+}
+
+.supplier-management .delete-action:hover {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.supplier-management .icon-action:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+/* ---------- Empty / page states ---------- */
+.supplier-management .empty-state {
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.supplier-management .empty-state p {
+  margin: 4px 0 0;
+  font-size: 11px;
+}
+
+.suppliers-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.suppliers-state-error h2 {
+  color: var(--warn);
+  font-size: 1.2rem;
+}
+
+.supplier-page-error {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+/* ---------- Pagination ---------- */
+.supplier-management .supplier-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+
+.supplier-management .pagination-info {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.supplier-management .pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.supplier-management .page-button {
+  min-width: 27px;
+  height: 27px;
+  padding: 0 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.supplier-management .page-button:hover:not(:disabled) { background: var(--bg); }
+
+.supplier-management .page-button.active-page {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+
+.supplier-management .page-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Form modal ---------- */
+.supplier-form-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(22, 27, 33, 0.55);
+}
+
+.supplier-form-modal {
+  width: 100%;
+  max-width: 680px;
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 1.8rem 2rem 1.6rem;
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(22, 27, 33, 0.3);
+  animation: supplierModalIn 0.18s ease both;
+}
+
+@keyframes supplierModalIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+.supplier-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.supplier-form .form-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.3rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.supplier-form .form-head h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.supplier-form .muted { margin-top: 0.15rem; }
+
+.supplier-form .form-close {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.supplier-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem 1.2rem;
+}
+
+.supplier-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.supplier-form .field label {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.supplier-form .field input,
+.supplier-form .field textarea {
+  width: 100%;
+  font: inherit;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.supplier-form .field input:focus,
+.supplier-form .field textarea:focus {
+  border-color: var(--ember);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.18);
+}
+
+.supplier-address-field { grid-column: 1 / -1; }
+
+.supplier-form .form-error {
+  margin-top: 1.1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.supplier-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+}
+
+.supplier-form .form-actions button {
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.75rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.supplier-form .form-actions button[type="submit"] {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+
+.supplier-form .form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .supplier-management .supplier-filters { flex-direction: column; }
+  .supplier-management .supplier-table { min-width: 600px; }
+}
+
+@media (max-width: 600px) {
+  .supplier-form-modal { padding: 1.3rem 1.2rem; }
+  .supplier-form-grid { grid-template-columns: 1fr; }
+
+  .supplier-management .supplier-list-card { padding: 9px; }
+
+  .supplier-management .supplier-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .supplier-management .pagination-controls { flex-wrap: wrap; }
+}

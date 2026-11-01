@@ -45,6 +45,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Customers", path: "/admin/customers" },
       { label: "Roles & permissions", path: "/admin/roles" },
       { label: "Settings", path: "/admin/settings" },
+      { label: "Suppliers", path: "/admin/suppliers" }
     ],
   },
 ];
