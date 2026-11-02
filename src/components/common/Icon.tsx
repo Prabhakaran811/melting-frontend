@@ -99,6 +99,13 @@ trash: (
     <rect x="14" y="14" width="7" height="7" rx="1.5" />
   </>
 ),
+product: (
+  <>
+    <path d="m12 3 8.5 4.5v9L12 21l-8.5-4.5v-9z" />
+    <path d="m3.5 7.5 8.5 4.5 8.5-4.5" />
+    <path d="M12 12v9" />
+  </>
+),
 
 } satisfies Record<string, ReactNode>;
 
