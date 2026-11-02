@@ -20,6 +20,13 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Charge planning", path: "/melting/charge" },
     ],
   },
+   {
+    label: "Master",
+    icon: "master",
+    children: [
+      { label: "Furnaces", path: "/master/furnaces" },
+    ],
+  },
   {
     label: "Production",
     icon: "factory",
@@ -43,8 +50,6 @@ export const NAV_ITEMS: NavItem[] = [
     children: [
       { label: "Users", path: "/admin/users" },
       { label: "Customers", path: "/admin/customers" },
-      { label: "Roles & permissions", path: "/admin/roles" },
-      { label: "Settings", path: "/admin/settings" },
       { label: "Suppliers", path: "/admin/suppliers" }
     ],
   },

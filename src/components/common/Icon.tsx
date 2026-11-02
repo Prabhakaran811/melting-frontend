@@ -91,6 +91,14 @@ trash: (
       <path d="m8 12 2.5 2.5L16 9" />
     </>
   ),
+  master: (
+  <>
+    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+  </>
+),
 
 } satisfies Record<string, ReactNode>;
 

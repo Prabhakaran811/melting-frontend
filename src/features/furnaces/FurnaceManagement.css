@@ -1,0 +1,402 @@
+/* =========================================
+   FURNACE MANAGEMENT
+   Same compact look as Users and Customers
+========================================= */
+
+.furnace-management .furnace-list-card {
+  min-width: 0;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.furnace-management .furnace-list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 9px;
+}
+
+.furnace-management .furnace-list-heading h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.furnace-management .furnace-list-heading p {
+  margin: 0;
+  font-size: 11px;
+}
+
+/* Filters */
+.furnace-management .furnace-filters {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.furnace-management .furnace-filters input,
+.furnace-management .furnace-filters select {
+  height: 34px;
+  min-width: 150px;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.furnace-management .furnace-filters input { flex: 1; }
+
+.furnace-management .furnace-filters input:focus,
+.furnace-management .furnace-filters select:focus {
+  border-color: var(--ember);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.18);
+}
+
+.furnace-management .btn-add-furnace {
+  height: 34px;
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: 7px;
+  white-space: nowrap;
+}
+
+/* Table */
+.furnace-management .furnace-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.furnace-management .furnace-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  white-space: nowrap;
+}
+
+.furnace-management .furnace-table th,
+.furnace-management .furnace-table td {
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line);
+}
+
+.furnace-management .furnace-table th {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--bg);
+  color: var(--muted);
+}
+
+.furnace-management .furnace-table th:first-child { border-radius: 7px 0 0 7px; }
+.furnace-management .furnace-table th:last-child { border-radius: 0 7px 7px 0; }
+
+.furnace-management .furnace-table tbody tr:hover { background: var(--bg); }
+.furnace-management .furnace-table tbody tr:last-child td { border-bottom: none; }
+
+/* Furnace name */
+.furnace-management .person {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.furnace-management .person-avatar {
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  flex: 0 0 27px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ember-soft);
+  color: var(--ember-dark);
+}
+
+.furnace-management .person-name {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+
+/* Status */
+.furnace-management .status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.furnace-management .status-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.furnace-management .status-active { color: var(--ok); }
+.furnace-management .status-inactive { color: var(--muted); }
+
+/* Action icons */
+.furnace-management .table-actions.icon-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.furnace-management .icon-action {
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.furnace-management .icon-action:hover { border-color: transparent; }
+.furnace-management .icon-action svg { width: 14px; height: 14px; }
+
+.furnace-management .edit-action:hover { background: var(--info-soft); color: var(--info); }
+.furnace-management .deactivate-action:hover { background: #fff7ed; color: #d97706; }
+.furnace-management .activate-action:hover { background: #ecfdf5; color: #059669; }
+
+.furnace-management .icon-action:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+/* Pagination */
+.furnace-management .furnace-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+
+.furnace-management .pagination-info { font-size: 11px; color: var(--muted); }
+.furnace-management .pagination-controls { display: flex; align-items: center; gap: 4px; }
+
+.furnace-management .page-button {
+  min-width: 27px;
+  height: 27px;
+  padding: 0 7px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.furnace-management .page-button:hover:not(:disabled) { background: var(--bg); }
+
+.furnace-management .page-button.active-page {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+
+.furnace-management .page-button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Empty and error states */
+.furnace-management .empty-state { padding: 10px; font-size: 12px; text-align: center; }
+.furnace-management .empty-state p { margin: 4px 0 0; font-size: 11px; }
+
+.furnace-management .furnace-page-error {
+  margin-bottom: 10px;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.furnaces-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.furnaces-state-error h2 { color: var(--warn); font-size: 1.2rem; }
+
+/* ---------- Add / edit modal ---------- */
+.furnace-form-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(22, 27, 33, 0.55);
+}
+
+.furnace-form-modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 1.8rem 2rem 1.6rem;
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(22, 27, 33, 0.3);
+  animation: furnaceModalIn 0.18s ease both;
+}
+
+@keyframes furnaceModalIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+.furnace-form { display: flex; flex-direction: column; }
+
+.furnace-form .form-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.3rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.furnace-form .form-head h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; }
+.furnace-form .muted { margin-top: 0.15rem; }
+
+.furnace-form .form-close {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.furnace-form .form-close:hover { background: var(--bg); color: var(--text); }
+
+.furnace-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem 1.2rem;
+}
+
+.furnace-wide-field { grid-column: 1 / -1; }
+
+.furnace-form .field { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+.furnace-form .field label { font-size: 0.88rem; font-weight: 700; }
+
+.furnace-form .field input {
+  width: 100%;
+  font: inherit;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.furnace-form .field input:focus {
+  border-color: var(--ember);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.18);
+}
+
+.furnace-form .form-error {
+  margin-top: 1.1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.furnace-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+}
+
+.furnace-form .form-actions button {
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.75rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.furnace-form .form-actions button:hover:not(:disabled) { background: var(--bg); }
+
+.furnace-form .form-actions button[type="submit"] {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #fff;
+}
+
+.furnace-form .form-actions button[type="submit"]:hover:not(:disabled) { background: var(--ember-dark); }
+.furnace-form .form-actions button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .furnace-management .furnace-filters { flex-direction: column; }
+  .furnace-management .furnace-table { min-width: 640px; }
+}
+
+@media (max-width: 600px) {
+  .furnace-form-modal { padding: 1.3rem 1.2rem; }
+  .furnace-form-grid { grid-template-columns: 1fr; }
+
+  .furnace-management .furnace-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .furnace-management .pagination-controls { flex-wrap: wrap; }
+}
