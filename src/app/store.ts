@@ -7,6 +7,7 @@ import { supplierApi } from "../features/suppliers/supplierApi";
 import { furnaceApi } from "../features/furnaces/furnaceApi";
 import { productApi } from "../features/products/productApi";
 import { hardnessApi } from "../features/hardness/hardnessApi";
+import { inoculantApi } from "../features/inoculants/inoculantApi";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
       [furnaceApi.reducerPath]: furnaceApi.reducer,
       [productApi.reducerPath]: productApi.reducer,
       [hardnessApi.reducerPath]: hardnessApi.reducer,
+      [inoculantApi.reducerPath]: inoculantApi.reducer,
   },
 
    middleware: (getDefaultMiddleware) =>
@@ -26,7 +28,8 @@ export const store = configureStore({
     .concat(supplierApi.middleware)
     .concat(furnaceApi.middleware)
     .concat(productApi.middleware)
-    .concat(hardnessApi.middleware),
+    .concat(hardnessApi.middleware)
+    .concat(inoculantApi.middleware),
    
 });
 
