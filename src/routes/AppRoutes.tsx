@@ -8,6 +8,7 @@ import CustomerManagement from "../features/customers/pages/CustomerManagement";
 import SupplierManagement from "../features/suppliers/pages/SupplierManagement";
 import FurnaceManagement from "../features/furnaces/pages/FurnaceManagement";
 import ProductManagement from "../features/products/pages/ProductManagement";
+import HardnessManagement from "../features/hardness/pages/HardnessManagement";
 import PageHeader from "../components/common/PageHeader";
 import { useAppSelector } from "../app/hooks";
 import { NAV_ITEMS } from "../utils/constants";
@@ -18,7 +19,7 @@ const Placeholder = ({ title }: { title: string }) => (
 );
 
 // Pages that already exist. Add each new page's path here when you build it.
-const BUILT_PATHS = new Set(["/dashboard", "/admin/users", "/admin/customers", "/admin/suppliers", "/master/furnaces", "/master/products"]);
+const BUILT_PATHS = new Set(["/dashboard", "/admin/users", "/admin/customers", "/admin/suppliers", "/master/furnaces", "/master/products", "/master/hardness"]);
 
 const placeholderPages: NavChild[] = NAV_ITEMS.flatMap(
   (item): NavChild[] =>
@@ -44,6 +45,7 @@ export default function AppRoutes() {
           <Route path="/admin/suppliers" element={<SupplierManagement />} />
           <Route path="/master/furnaces" element={<FurnaceManagement />} />
           <Route path="/master/products" element={<ProductManagement />} />
+          <Route path="/master/hardness" element={<HardnessManagement />} />
           {placeholderPages.map((page) => (
             <Route
               key={page.path}

@@ -26,6 +26,7 @@ export const NAV_ITEMS: NavItem[] = [
     children: [
       { label: "Furnaces", path: "/master/furnaces" },
       { label: "Products", path: "/master/products" },
+      { label: "Hardness", path: "/master/hardness" },
     ],
   },
   {

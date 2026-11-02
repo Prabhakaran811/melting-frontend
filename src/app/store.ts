@@ -6,6 +6,7 @@ import { customerApi } from "../features/customers/customerApi";
 import { supplierApi } from "../features/suppliers/supplierApi";
 import { furnaceApi } from "../features/furnaces/furnaceApi";
 import { productApi } from "../features/products/productApi";
+import { hardnessApi } from "../features/hardness/hardnessApi";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
      [supplierApi.reducerPath]: supplierApi.reducer,
       [furnaceApi.reducerPath]: furnaceApi.reducer,
       [productApi.reducerPath]: productApi.reducer,
+      [hardnessApi.reducerPath]: hardnessApi.reducer,
   },
 
    middleware: (getDefaultMiddleware) =>
@@ -23,7 +25,8 @@ export const store = configureStore({
     .concat(customerApi.middleware)
     .concat(supplierApi.middleware)
     .concat(furnaceApi.middleware)
-    .concat(productApi.middleware),
+    .concat(productApi.middleware)
+    .concat(hardnessApi.middleware),
    
 });
 
