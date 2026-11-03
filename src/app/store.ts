@@ -8,6 +8,8 @@ import { furnaceApi } from "../features/furnaces/furnaceApi";
 import { productApi } from "../features/products/productApi";
 import { hardnessApi } from "../features/hardness/hardnessApi";
 import { inoculantApi } from "../features/inoculants/inoculantApi";
+import { granuleApi } from "../features/fesiGranules/granuleApi";
+import { packingApi } from "../features/packings/packingApi";
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +21,8 @@ export const store = configureStore({
       [productApi.reducerPath]: productApi.reducer,
       [hardnessApi.reducerPath]: hardnessApi.reducer,
       [inoculantApi.reducerPath]: inoculantApi.reducer,
+      [granuleApi.reducerPath]: granuleApi.reducer,
+      [packingApi.reducerPath]: packingApi.reducer,
   },
 
    middleware: (getDefaultMiddleware) =>
@@ -29,7 +33,9 @@ export const store = configureStore({
     .concat(furnaceApi.middleware)
     .concat(productApi.middleware)
     .concat(hardnessApi.middleware)
-    .concat(inoculantApi.middleware),
+    .concat(inoculantApi.middleware)
+    .concat(granuleApi.middleware)
+    .concat(packingApi.middleware),
    
 });
 

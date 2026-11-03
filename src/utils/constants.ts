@@ -28,6 +28,8 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Products", path: "/master/products" },
       { label: "Hardness", path: "/master/hardness" },
       { label: "Inoculants", path: "/master/inoculants" },
+      {label:  "Fesi Granuals", path: "/master/fesi-granules"},
+      {label: "Packings", path: "/master/packings"}
     ],
   },
   {
