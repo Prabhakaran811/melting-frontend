@@ -12,6 +12,7 @@ import { granuleApi } from "../features/fesiGranules/granuleApi";
 import { packingApi } from "../features/packings/packingApi";
 import { elementApi } from "../features/elements/elementApi";
 import { ironTypeApi } from "../features/ironTypes/ironTypeApi";
+import { rawMaterialApi } from "../features/rawMaterials/rawMaterialApi";
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
       [packingApi.reducerPath]: packingApi.reducer,
       [elementApi.reducerPath]: elementApi.reducer,
       [ironTypeApi.reducerPath]: ironTypeApi.reducer,
+      [rawMaterialApi.reducerPath]: rawMaterialApi.reducer,
   },
 
    middleware: (getDefaultMiddleware) =>
@@ -41,7 +43,8 @@ export const store = configureStore({
     .concat(granuleApi.middleware)
     .concat(packingApi.middleware)
     .concat(elementApi.middleware)
-    .concat(ironTypeApi.middleware),
+    .concat(ironTypeApi.middleware)
+    .concat(rawMaterialApi.middleware),
 
 });
 
