@@ -13,6 +13,7 @@ import { packingApi } from "../features/packings/packingApi";
 import { elementApi } from "../features/elements/elementApi";
 import { ironTypeApi } from "../features/ironTypes/ironTypeApi";
 import { rawMaterialApi } from "../features/rawMaterials/rawMaterialApi";
+import { wireApi } from "../features/wires/wireApi";
 
 export const store = configureStore({
   reducer: {
@@ -29,6 +30,7 @@ export const store = configureStore({
       [elementApi.reducerPath]: elementApi.reducer,
       [ironTypeApi.reducerPath]: ironTypeApi.reducer,
       [rawMaterialApi.reducerPath]: rawMaterialApi.reducer,
+      [wireApi.reducerPath]: wireApi.reducer,
   },
 
    middleware: (getDefaultMiddleware) =>
@@ -44,7 +46,8 @@ export const store = configureStore({
     .concat(packingApi.middleware)
     .concat(elementApi.middleware)
     .concat(ironTypeApi.middleware)
-    .concat(rawMaterialApi.middleware),
+    .concat(rawMaterialApi.middleware)
+    .concat(wireApi.middleware),
 
 });
 
