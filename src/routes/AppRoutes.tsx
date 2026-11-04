@@ -13,6 +13,7 @@ import InoculantManagement from "../features/inoculants/pages/InoculantManagemen
 import GranuleManagement from "../features/fesiGranules/pages/GranuleManagement";
 import PackingManagement from "../features/packings/pages/PackingManagement";
 import ElementManagement from "../features/elements/pages/ElementManagement";
+import IronTypeManagement from "../features/ironTypes/pages/IronTypeManagement";
 import PageHeader from "../components/common/PageHeader";
 import { useAppSelector } from "../app/hooks";
 import { NAV_ITEMS } from "../utils/constants";
@@ -23,7 +24,7 @@ const Placeholder = ({ title }: { title: string }) => (
 );
 
 // Pages that already exist. Add each new page's path here when you build it.
-const BUILT_PATHS = new Set(["/dashboard", "/admin/users", "/admin/customers", "/admin/suppliers", "/master/furnaces", "/master/products", "/master/hardness", "/master/inoculants", "/master/fesi-granules", "/master/packings", "/master/elements"]);
+const BUILT_PATHS = new Set(["/dashboard", "/admin/users", "/admin/customers", "/admin/suppliers", "/master/furnaces", "/master/products", "/master/hardness", "/master/inoculants", "/master/fesi-granules", "/master/packings", "/master/elements", "/master/iron-type"]);
 
 const placeholderPages: NavChild[] = NAV_ITEMS.flatMap(
   (item): NavChild[] =>
@@ -54,6 +55,8 @@ export default function AppRoutes() {
           <Route path="/master/fesi-granules" element={<GranuleManagement />} />
           <Route path="/master/packings" element={<PackingManagement />} />
           <Route path="/master/elements" element={<ElementManagement />} />
+          <Route path="/master/iron-type" element={<IronTypeManagement />} />
+
           {placeholderPages.map((page) => (
             <Route
               key={page.path}

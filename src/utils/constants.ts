@@ -31,6 +31,8 @@ export const NAV_ITEMS: NavItem[] = [
       {label:  "Fesi Granuals", path: "/master/fesi-granules"},
       {label: "Packings", path: "/master/packings"},
       {label: "Elements", path: "/master/elements"},
+      {label: "Iron Type", path: "/master/iron-type"},
+
     ],
   },
   {

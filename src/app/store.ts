@@ -11,6 +11,8 @@ import { inoculantApi } from "../features/inoculants/inoculantApi";
 import { granuleApi } from "../features/fesiGranules/granuleApi";
 import { packingApi } from "../features/packings/packingApi";
 import { elementApi } from "../features/elements/elementApi";
+import { ironTypeApi } from "../features/ironTypes/ironTypeApi";
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -24,6 +26,7 @@ export const store = configureStore({
       [granuleApi.reducerPath]: granuleApi.reducer,
       [packingApi.reducerPath]: packingApi.reducer,
       [elementApi.reducerPath]: elementApi.reducer,
+      [ironTypeApi.reducerPath]: ironTypeApi.reducer,
   },
 
    middleware: (getDefaultMiddleware) =>
@@ -37,7 +40,8 @@ export const store = configureStore({
     .concat(inoculantApi.middleware)
     .concat(granuleApi.middleware)
     .concat(packingApi.middleware)
-    .concat(elementApi.middleware),
+    .concat(elementApi.middleware)
+    .concat(ironTypeApi.middleware),
 
 });
 
