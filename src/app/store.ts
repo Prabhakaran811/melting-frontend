@@ -16,6 +16,7 @@ import { rawMaterialApi } from "../features/rawMaterials/rawMaterialApi";
 import { wireApi } from "../features/wires/wireApi";
 import { elementStockApi } from "../features/elementStocks/elementStockApi";
 import { rawMaterialStockApi } from "../features/rawMaterialStocks/rawMaterialStockApi";
+import { wireStockApi } from "../features/wireStocks/wireStockApi";
 
 export const store = configureStore({
   reducer: {
@@ -35,6 +36,7 @@ export const store = configureStore({
       [wireApi.reducerPath]: wireApi.reducer,
       [elementStockApi.reducerPath]: elementStockApi.reducer,
       [rawMaterialStockApi.reducerPath]: rawMaterialStockApi.reducer,
+      [wireStockApi.reducerPath]: wireStockApi.reducer,
   },
 
    middleware: (getDefaultMiddleware) =>
@@ -53,7 +55,8 @@ export const store = configureStore({
     .concat(rawMaterialApi.middleware)
     .concat(wireApi.middleware)
     .concat(elementStockApi.middleware)
-    .concat(rawMaterialStockApi.middleware),
+    .concat(rawMaterialStockApi.middleware)
+    .concat(wireStockApi.middleware),
 
 });
 
