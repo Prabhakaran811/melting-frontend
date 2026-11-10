@@ -38,6 +38,7 @@ export const NAV_ITEMS: NavItem[] = [
       {label: "raw material stock", path: "/master/raw-material-stock"},
       {label: "wire stock", path: "/master/wire-stock"},
       {label: "Aims", path: "/master/aims"},
+      {label: "Orders", path: "/master/orders"}
 
     ],
   },
