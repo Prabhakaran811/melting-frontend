@@ -1,11 +1,36 @@
 import { useEffect, useMemo, useState } from "react";
 import type { SpectrumResult } from "../furnaceDashboardTypes";
-import { formatDateTime } from "../furnaceDashboardTypes";
 
 interface Props {
   hasCycle: boolean;
   results: SpectrumResult[];
 }
+
+// Keys that describe the test itself. Every other numeric key is an element value.
+const META_KEYS = new Set(["id", "test_number", "stage", "T", "fur", "received_at"]);
+
+// Show the main elements first, then the rest in the order the server sent them
+const PRIORITY = ["C", "Si", "Mn", "P", "S", "Cu", "Cr", "Sn", "Mg", "Mo", "Ni", "Al", "Ceq", "Fe"];
+
+const formatValue = (value: number) =>
+  Number.isInteger(value) ? String(value) : String(Number(value.toFixed(4)));
+
+// Pull the element values out of one flat test result
+const getElements = (result: SpectrumResult | null): [string, number][] => {
+  if (!result) return [];
+
+  const entries = Object.entries(result).filter(
+    (entry): entry is [string, number] =>
+      !META_KEYS.has(entry[0]) && typeof entry[1] === "number" && Number.isFinite(entry[1])
+  );
+
+  const rank = (symbol: string) => {
+    const i = PRIORITY.indexOf(symbol);
+    return i === -1 ? PRIORITY.length : i;
+  };
+
+  return entries.sort((a, b) => rank(a[0]) - rank(b[0]));
+};
 
 export default function SpectrumPanel({ hasCycle, results }: Props) {
   const sorted = useMemo(
@@ -29,7 +54,10 @@ export default function SpectrumPanel({ hasCycle, results }: Props) {
   }, [sorted]);
 
   const current = sorted.find((r) => r.test_number === selected) ?? null;
-  const elementEntries = Object.entries(current?.elements ?? {});
+  const elementEntries = useMemo(() => getElements(current), [current]);
+
+  const operator = current?.T ? String(current.T) : "";
+  const furnaceNo = current?.fur ? `Furnace ${current.fur}` : "";
 
   return (
     <section className="fd-card">
@@ -51,12 +79,12 @@ export default function SpectrumPanel({ hasCycle, results }: Props) {
             {sorted.map((r) => (
               <button
                 type="button"
-                key={r.id ?? r.test_number}
+                key={r.test_number}
                 className={r.test_number === selected ? "is-active" : ""}
                 onClick={() => setSelected(r.test_number)}
               >
                 Test {r.test_number}
-                {r.test_stage && <em>{r.test_stage}</em>}
+                {r.stage && <em>{r.stage}</em>}
               </button>
             ))}
           </div>
@@ -69,7 +97,7 @@ export default function SpectrumPanel({ hasCycle, results }: Props) {
                   {elementEntries.map(([symbol, value]) => (
                     <div className="fd-elcell" key={symbol}>
                       <span>{symbol}</span>
-                      <strong>{Number(value)}</strong>
+                      <strong>{formatValue(value)}</strong>
                     </div>
                   ))}
                 </div>
@@ -78,13 +106,7 @@ export default function SpectrumPanel({ hasCycle, results }: Props) {
               )}
 
               <p className="fd-sub">
-                {[
-                  current.result_status,
-                  current.operator_name,
-                  current.received_at && formatDateTime(current.received_at),
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
+                {[`Test ${current.test_number}`, operator, furnaceNo].filter(Boolean).join(" · ")}
               </p>
             </>
           )}

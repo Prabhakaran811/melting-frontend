@@ -40,6 +40,7 @@ export const NAV_ITEMS: NavItem[] = [
       {label: "Aims", path: "/master/aims"},
       {label: "Orders", path: "/master/orders"},
       {label: "Furnace Dashboard", path: "/master/furnace-dashboard"},
+      {label: "Furnace Reports", path: "/master/furnace-reports"},
 
 
     ],
