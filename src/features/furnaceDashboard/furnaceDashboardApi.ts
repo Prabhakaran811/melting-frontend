@@ -5,9 +5,7 @@ import type {
   Furnace,
   FurnaceCycle,
   FurnaceDetails,
-  SpectrumComparison,
-  CreateChargeMixRequest,
-  UpdateChargeMixRequest,
+  ChargeMixItemInput,
 } from "./furnaceDashboardTypes";
 
 // Works with both response styles:
@@ -65,21 +63,10 @@ export const furnaceDashboardApi = createApi({
       providesTags: (_r, _e, furnaceId) => [{ type: "FurnaceDetails", id: furnaceId }],
     }),
 
-    // COMPARE AIM AND SPECTRUM
-    getSpectrumComparison: builder.query<
-      SpectrumComparison,
-      { furnaceId: number; cycleId: number }
-    >({
-      query: ({ furnaceId, cycleId }) =>
-        `/furnaces/${furnaceId}/cycles/${cycleId}/spectrum-comparison`,
-      transformResponse: (res: Wrapped<SpectrumComparison> | SpectrumComparison) => unwrap(res),
-      providesTags: (_r, _e, { furnaceId }) => [{ type: "FurnaceDetails", id: furnaceId }],
-    }),
-
     // START A NEW CYCLE
     startCycle: builder.mutation<FurnaceCycle, { furnaceId: number; order_id: number }>({
       query: ({ furnaceId, order_id }) => ({
-        url: `/furnaces/${furnaceId}/cycles`,
+        url: `/furnaces/${furnaceId}/start`,
         method: "POST",
         body: { order_id },
       }),
@@ -100,25 +87,21 @@ export const furnaceDashboardApi = createApi({
       invalidatesTags: (_r, _e, { furnaceId }) => refresh(furnaceId),
     }),
 
-    // CREATE CHARGE MIX
-    createChargeMix: builder.mutation<
-      unknown,
-      { furnaceId: number; cycleId: number; body: CreateChargeMixRequest }
-    >({
-      query: ({ furnaceId,  body }) => ({
-        url: `/furnaces/${furnaceId}/charge-mix/items`,
+    // CREATE EMPTY CHARGE MIX (no body; items are added afterwards)
+    createChargeMix: builder.mutation<unknown, { furnaceId: number }>({
+      query: ({ furnaceId }) => ({
+        url: `/furnaces/${furnaceId}/charge-mix`,
         method: "POST",
-        body,
       }),
       invalidatesTags: (_r, _e, { furnaceId }) => refresh(furnaceId),
     }),
 
-    // UPDATE DRAFT CHARGE MIX (replaces the items)
-    updateChargeMix: builder.mutation<
+    // ADD ONE ITEM TO THE CHARGE MIX
+    addChargeMixItem: builder.mutation<
       unknown,
-      { furnaceId: number; cycleId: number; body: UpdateChargeMixRequest }
+      { furnaceId: number; body: ChargeMixItemInput }
     >({
-      query: ({ furnaceId,  body }) => ({
+      query: ({ furnaceId, body }) => ({
         url: `/furnaces/${furnaceId}/charge-mix/items`,
         method: "POST",
         body,
@@ -140,8 +123,8 @@ export const furnaceDashboardApi = createApi({
       unknown,
       { furnaceId: number; cycleId: number; remarks: string }
     >({
-      query: ({ furnaceId, cycleId, remarks }) => ({
-        url: `/furnaces/${furnaceId}/cycles/${cycleId}/complete`,
+      query: ({ furnaceId,  remarks }) => ({
+        url: `/furnaces/${furnaceId}/complete-melt`,
         method: "POST",
         body: { remarks },
       }),
@@ -153,11 +136,10 @@ export const furnaceDashboardApi = createApi({
 export const {
   useGetFurnacesQuery,
   useGetFurnaceDetailsQuery,
-  useGetSpectrumComparisonQuery,
   useStartCycleMutation,
   useUpdateStageMutation,
   useCreateChargeMixMutation,
-  useUpdateChargeMixMutation,
+  useAddChargeMixItemMutation,
   useConfirmChargeMixMutation,
   useCompleteCycleMutation,
 } = furnaceDashboardApi;

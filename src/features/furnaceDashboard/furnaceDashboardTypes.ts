@@ -58,9 +58,7 @@ export interface ChargeMix {
 export interface ChargeMixItemInput {
   raw_material_stock_id: number;
   weight: number;
-  rate_per_kg: number;
   bunker_name: string;
-  elements: { element_id: number; percentage: number }[];
 }
 
 export interface CreateChargeMixRequest {

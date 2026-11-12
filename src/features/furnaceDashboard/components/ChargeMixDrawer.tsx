@@ -18,7 +18,7 @@ interface Props {
   elements: Element[];
   saving: boolean;
   onClose: () => void;
-  onSubmit: (payload: { charging_capacity: number; items: ChargeMixItemInput[] }) => void;
+onSubmit: (payload: { items: ChargeMixItemInput[] }) => void;
 }
 
 interface RowElement {
@@ -221,18 +221,12 @@ export default function ChargeMixDrawer({
     if (Object.keys(errs).length > 0 || Object.keys(rErrs).length > 0) return;
 
     onSubmit({
-      charging_capacity: capacityNum,
       items: rows.map((row) => ({
         raw_material_stock_id: row.stockId as number,
         weight: Number(row.weight),
-        rate_per_kg: Number(row.rate),
         bunker_name: row.bunker.trim(),
-        elements: elementsOf(row).map((el) => ({
-          element_id: el.element_id,
-          percentage: el.percentage,
-        })),
       })),
-    });
+    });;
   };
 
   return (

@@ -3,11 +3,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   useGetFurnacesQuery,
   useGetFurnaceDetailsQuery,
-  useGetSpectrumComparisonQuery,
   useStartCycleMutation,
   useUpdateStageMutation,
   useCreateChargeMixMutation,
-  useUpdateChargeMixMutation,
+  useAddChargeMixItemMutation,
   useConfirmChargeMixMutation,
   useCompleteCycleMutation,
 } from "../furnaceDashboardApi";
@@ -97,15 +96,6 @@ export default function FurnaceDashboard() {
   const results = details?.spectrum_results ?? [];
 
   const {
-    data: comparison,
-    isLoading: comparisonLoading,
-    isError: comparisonError,
-  } = useGetSpectrumComparisonQuery(
-    { furnaceId: selectedId ?? 0, cycleId: cycle?.id ?? 0 },
-    { skip: selectedId === null || !cycle || results.length === 0, pollingInterval: REFRESH_MS }
-  );
-
-  const {
     data: orders = [],
     isLoading: ordersLoading,
     isError: ordersError,
@@ -123,7 +113,7 @@ export default function FurnaceDashboard() {
   const [startCycle, { isLoading: starting }] = useStartCycleMutation();
   const [updateStage, { isLoading: movingStage }] = useUpdateStageMutation();
   const [createChargeMix, { isLoading: creatingMix }] = useCreateChargeMixMutation();
-  const [updateChargeMix, { isLoading: updatingMix }] = useUpdateChargeMixMutation();
+  const [addChargeMixItem] = useAddChargeMixItemMutation();
   const [confirmMix, { isLoading: confirming }] = useConfirmChargeMixMutation();
   const [completeCycle, { isLoading: completing }] = useCompleteCycleMutation();
 
@@ -132,9 +122,10 @@ export default function FurnaceDashboard() {
   const [modal, setModal] = useState<ModalType>(null);
   const [remarks, setRemarks] = useState("");
   const [toast, setToast] = useState<ToastState | null>(null);
+  const [savingMix, setSavingMix] = useState(false);
   const toastTimer = useRef<number | undefined>(undefined);
 
-  const busy = movingStage || confirming || completing;
+  const busy = movingStage || confirming || completing || creatingMix;
 
   const showToast = (type: ToastState["type"], text: string) => {
     window.clearTimeout(toastTimer.current);
@@ -167,27 +158,60 @@ export default function FurnaceDashboard() {
     }
   };
 
-  const handleSaveMix = async (payload: { charging_capacity: number; items: ChargeMixItemInput[] }) => {
+  // Add / Edit charge mix button:
+  // the server needs the (empty) charge mix to exist before items can be added,
+  // so create it first when there is none, then open the drawer.
+  const handleOpenMix = async () => {
     if (selectedFurnaceId === null || !cycle) return;
-    try {
-      if (mix) {
-        await updateChargeMix({
-          furnaceId: selectedFurnaceId,
-          cycleId: cycle.id,
-          body: { items: payload.items },
-        }).unwrap();
-        showToast("success", "Charge mix updated");
-      } else {
-        await createChargeMix({
-          furnaceId: selectedFurnaceId,
-          cycleId: cycle.id,
-          body: payload,
-        }).unwrap();
-        showToast("success", "Charge mix saved");
+
+    if (!mix) {
+      try {
+        await createChargeMix({ furnaceId: selectedFurnaceId }).unwrap();
+        await refetchDetails(); // make sure the new mix is loaded before the drawer opens
+      } catch (err) {
+        showToast("error", getApiErrorMessage(err, "Could not create the charge mix"));
+        return;
       }
+    }
+
+    setMixDrawerOpen(true);
+  };
+
+  const handleSaveMix = async (payload: { items: ChargeMixItemInput[] }) => {
+    if (selectedFurnaceId === null || !cycle) return;
+
+    // Only send materials that are not already in the saved mix
+    const savedStockIds = new Set(
+      (mix?.items ?? []).map((i) => i.raw_material_stock_id)
+    );
+    const toSend = payload.items.filter((i) => !savedStockIds.has(i.raw_material_stock_id));
+
+    if (toSend.length === 0) {
+      showToast("error", "No new materials to add");
+      return;
+    }
+
+    setSavingMix(true);
+    let saved = 0;
+
+    try {
+      // The API takes one item per request, so send them one by one
+      for (const item of toSend) {
+        await addChargeMixItem({ furnaceId: selectedFurnaceId, body: item }).unwrap();
+        saved += 1;
+      }
+      showToast("success", "Charge mix saved");
       setMixDrawerOpen(false);
     } catch (err) {
-      showToast("error", getApiErrorMessage(err, "Could not save the charge mix"));
+      const base = getApiErrorMessage(err, "Could not save the charge mix");
+      showToast(
+        "error",
+        saved > 0
+          ? `${base} (${saved} of ${toSend.length} materials were saved before this error)`
+          : base
+      );
+    } finally {
+      setSavingMix(false);
     }
   };
 
@@ -312,7 +336,7 @@ export default function FurnaceDashboard() {
                   canComplete={canComplete}
                   busy={busy}
                   onStart={() => setDrawerOpen(true)}
-                  onEditMix={() => setMixDrawerOpen(true)}
+                  onEditMix={handleOpenMix}
                   onConfirmMix={() => setModal("confirm-mix")}
                   onNextStage={handleNextStage}
                   onComplete={() => setModal("complete")}
@@ -330,15 +354,9 @@ export default function FurnaceDashboard() {
                     mix={mix}
                     hasCycle={Boolean(cycle)}
                     canEdit={canEditMix}
-                    onEdit={() => setMixDrawerOpen(true)}
+                    onEdit={handleOpenMix}
                   />
-                  <SpectrumPanel
-                    hasCycle={Boolean(cycle)}
-                    results={results}
-                    comparison={comparison}
-                    comparisonLoading={comparisonLoading}
-                    comparisonError={comparisonError}
-                  />
+                  <SpectrumPanel hasCycle={Boolean(cycle)} results={results} />
                 </div>
               </>
             )
@@ -367,7 +385,7 @@ export default function FurnaceDashboard() {
         stocksLoading={stocksLoading}
         stocksError={stocksError}
         elements={elements}
-        saving={creatingMix || updatingMix}
+        saving={savingMix}
         onClose={() => setMixDrawerOpen(false)}
         onSubmit={handleSaveMix}
       />
