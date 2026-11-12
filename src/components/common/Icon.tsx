@@ -58,6 +58,22 @@ const PATHS = {
       <path d="M20 12H9" />
     </>
   ),
+  production: (
+  <>
+    <path d="M3 21V8l6 4V8l6 4V5h6v16z" />
+    <path d="M15 5V3h4v2" />
+    <path d="M7 17h2M12 17h2M17 17h2" />
+  </>
+),
+
+inventory: (
+  <>
+    <path d="M3 7 12 3l9 4-9 4z" />
+    <path d="M3 7v10l9 4 9-4V7" />
+    <path d="M12 11v10" />
+    <path d="m7.5 5 9 4" />
+  </>
+),
   
 
 edit: (

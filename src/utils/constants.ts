@@ -9,66 +9,71 @@ export type NavItem = {
   children?: NavChild[]; // or a group with sub pages
 };
 
-export const NAV_ITEMS: NavItem[] = [
-  { label: "Overview", icon: "dashboard", path: "/dashboard" },
+export const NAV_ITEMS: NavItem[] =  [
   {
-    label: "Melting",
-    icon: "flame",
-    children: [
-      { label: "Furnaces", path: "/melting/furnaces" },
-      { label: "Heat log", path: "/melting/heats" },
-      { label: "Charge planning", path: "/melting/charge" },
-    ],
+    label: "Dashboard",
+    icon: "dashboard",
+    path: "/dashboard",
   },
-   {
-    label: "Master",
+
+  {
+    label: "Master Data",
     icon: "master",
     children: [
       { label: "Furnaces", path: "/master/furnaces" },
       { label: "Products", path: "/master/products" },
+      { label: "Customers", path: "/admin/customers" },
+      { label: "Suppliers", path: "/admin/suppliers" },
       { label: "Hardness", path: "/master/hardness" },
       { label: "Inoculants", path: "/master/inoculants" },
-      {label:  "Fesi Granuals", path: "/master/fesi-granules"},
-      {label: "Packings", path: "/master/packings"},
-      {label: "Elements", path: "/master/elements"},
-      {label: "Iron Type", path: "/master/iron-type"},
-      {label: "Raw Materials", path: "/master/raw-materials"},
-      {label: "Wires", path: "/master/wires"},
-      {label: "element stock", path: "/master/element-stock"},
-      {label: "raw material stock", path: "/master/raw-material-stock"},
-      {label: "wire stock", path: "/master/wire-stock"},
-      {label: "Aims", path: "/master/aims"},
-      {label: "Orders", path: "/master/orders"},
-      {label: "Furnace Dashboard", path: "/master/furnace-dashboard"},
-      {label: "Furnace Reports", path: "/master/furnace-reports"},
-
-
+      { label: "FeSi Granules", path: "/master/fesi-granules" },
+      { label: "Packings", path: "/master/packings" },
+      { label: "Elements", path: "/master/elements" },
+      { label: "Iron Types", path: "/master/iron-type" },
+      { label: "Raw Materials", path: "/master/raw-materials" },
+      { label: "Wires", path: "/master/wires" },
     ],
   },
+
+  {
+    label: "Inventory",
+    icon: "inventory",
+    children: [
+      { label: "Raw Material Stock", path: "/master/raw-material-stock" },
+      { label: "Element Stock", path: "/master/element-stock" },
+      { label: "Wire Stock", path: "/master/wire-stock" },
+    ],
+  },
+
   {
     label: "Production",
-    icon: "factory",
+    icon: "production",
     children: [
-      { label: "Orders", path: "/production/orders" },
-      { label: "Pouring", path: "/production/pouring" },
+      { label: "Orders", path: "/master/orders" },
+      { label: "AIM Management", path: "/master/aims" },
+      { label: "Furnace Dashboard", path: "/master/furnace-dashboard" },
+      { label: "Furnace Operations", path: "/production/furnace-operations" },
+      { label: "Charge Mix", path: "/production/charge-mix" },
+      { label: "Spectrum Testing", path: "/production/spectrum-testing" },
     ],
   },
+
   {
-    label: "Inspection",
-    icon: "inspect",
+    label: "Reports",
+    icon: "reports",
     children: [
-      { label: "Quality checks", path: "/inspection/checks" },
-      { label: "Defects", path: "/inspection/defects" },
+      { label: "Furnace Cycle Reports", path: "/master/furnace-reports" },
+      { label: "Spectrum Reports", path: "/reports/spectrum" },
+      { label: "Charge Mix Reports", path: "/reports/charge-mix" },
+      { label: "Production History", path: "/reports/production-history" },
     ],
   },
-  { label: "Reports", icon: "reports", path: "/reports" },
+
   {
-    label: "Admin",
+    label: "Administration",
     icon: "admin",
     children: [
       { label: "Users", path: "/admin/users" },
-      { label: "Customers", path: "/admin/customers" },
-      { label: "Suppliers", path: "/admin/suppliers" }
     ],
   },
 ];
