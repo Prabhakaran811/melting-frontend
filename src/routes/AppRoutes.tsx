@@ -21,6 +21,7 @@ import RawMaterialStockManagement from "../features/rawMaterialStocks/pages/RawM
 import WireStockManagement from "../features/wireStocks/pages/WireStockManagement";
 import AimManagement from "../features/aims/pages/AimManagement";
 import OrderManagement from "../features/orders/pages/OrderManagement";
+import FurnaceDashboard from "../features/furnaceDashboard/pages/FurnaceDashboard";
 import PageHeader from "../components/common/PageHeader";
 import { useAppSelector } from "../app/hooks";
 import { NAV_ITEMS } from "../utils/constants";
@@ -31,7 +32,7 @@ const Placeholder = ({ title }: { title: string }) => (
 );
 
 // Pages that already exist. Add each new page's path here when you build it.
-const BUILT_PATHS = new Set(["/dashboard", "/admin/users", "/admin/customers", "/admin/suppliers", "/master/furnaces", "/master/products", "/master/hardness", "/master/inoculants", "/master/fesi-granules", "/master/packings", "/master/elements", "/master/iron-type", "/master/raw-materials", "/master/wires", "/master/element-stock", "/master/raw-material-stock", "/master/wire-stock", "/master/aims", "/master/orders"]);
+const BUILT_PATHS = new Set(["/dashboard", "/admin/users", "/admin/customers", "/admin/suppliers", "/master/furnaces", "/master/products", "/master/hardness", "/master/inoculants", "/master/fesi-granules", "/master/packings", "/master/elements", "/master/iron-type", "/master/raw-materials", "/master/wires", "/master/element-stock", "/master/raw-material-stock", "/master/wire-stock", "/master/aims", "/master/orders", "/master/furnace-dashboard"]);
 
 const placeholderPages: NavChild[] = NAV_ITEMS.flatMap(
   (item): NavChild[] =>
@@ -70,6 +71,7 @@ export default function AppRoutes() {
           <Route path="/master/wire-stock" element={<WireStockManagement />} />
           <Route path="/master/aims" element={<AimManagement />} />
           <Route path="/master/orders" element={<OrderManagement />} />
+          <Route path="/master/furnace-dashboard" element={<FurnaceDashboard />} />
           {placeholderPages.map((page) => (
             <Route
               key={page.path}

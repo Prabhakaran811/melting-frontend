@@ -19,6 +19,7 @@ import { rawMaterialStockApi } from "../features/rawMaterialStocks/rawMaterialSt
 import { wireStockApi } from "../features/wireStocks/wireStockApi";
 import { aimApi } from "../features/aims/aimApi";
 import { orderApi } from "../features/orders/orderApi";
+import { furnaceDashboardApi } from "../features/furnaceDashboard/furnaceDashboardApi";
 
 export const store = configureStore({
   reducer: {
@@ -41,6 +42,7 @@ export const store = configureStore({
       [wireStockApi.reducerPath]: wireStockApi.reducer,
       [aimApi.reducerPath]: aimApi.reducer,
       [orderApi.reducerPath]: orderApi.reducer,
+      [furnaceDashboardApi.reducerPath]: furnaceDashboardApi.reducer,
   },
 
    middleware: (getDefaultMiddleware) =>
@@ -62,7 +64,8 @@ export const store = configureStore({
     .concat(rawMaterialStockApi.middleware)
     .concat(wireStockApi.middleware)
     .concat(aimApi.middleware)
-    .concat(orderApi.middleware),
+    .concat(orderApi.middleware)
+    .concat(furnaceDashboardApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
